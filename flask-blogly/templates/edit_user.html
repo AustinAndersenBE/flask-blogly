@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+Edit a User
+{% endblock %}
+
+{% block content %}
+
+<a href="{{ url_for('list_users') }}" class="home-button">Home</a>
+<h1> Edit User </h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('update_user', user_id=user.id) }}" method="post">
+        <div class="form-group">
+            <label for="first_Name">First Name</label>
+            <input type="text" id="first_Name" name="first_Name" value="{{ user.first_name }}">
+        </div>
+
+        <div class="form-group">
+            <label for="last_Name">Last Name</label>
+            <input type="text" id="last_Name" name="last_Name" value="{{ user.last_name }}">
+        </div>
+
+        <div class="form-group">
+            <label for="image_URL">Image URL</label>
+            <input type="text" id="image_URL" name="image_URL" value="{{ user.image_url }}">
+        </div>
+
+        <div class="form-group">
+            <input type="button" id="cancel-button" value="Cancel">
+            <input type="submit" value="Save">
+        </div>
+    </form>
+
+    <script>
+        document.getElementById("cancel-button").addEventListener("click", function() {
+            document.getElementById("first_Name").value = "";
+            document.getElementById("last_Name").value = "";
+            document.getElementById("image_URL").value = "";
+        });
+    </script>
+{% endblock %}

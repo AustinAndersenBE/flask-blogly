@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edit Post
+{% endblock %}
+
+{% block content %}
+    <h1>Edit Post</h1>
+
+        <form method="post" action="{{ url_for('update_post', post_id=post.id) }}">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ post.title if post else '' }}" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="4" placeholder="Content">{{ post.content if post else '' }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Tags</label><br>
+            {% for tag in tags %}
+                {% set safe_tag_id = tag.tag_name|replace(" ", "_")|lower %}
+                <input type="checkbox" id="{{ safe_tag_id }}" name="tags" value="{{ tag.id }}"
+                {% if tag.id in selected_tag_ids %} checked {% endif %}>
+                <label for="{{ safe_tag_id }}">{{ tag.tag_name }}</label><br>
+            {% endfor %}
+        </div>
+
+
+        <div class="form-buttons">
+            <a href="{{ url_for('user_detail', user_id = post.author.id) }}" class="btn-secondary">Cancel</a>
+            <button type="submit" class="btn-primary">Update</button>
+        </div>
+        </form>
+{% endblock %}
+
+

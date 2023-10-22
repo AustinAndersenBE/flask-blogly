@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create a Tag
+{% endblock %}
+
+{% block content %}
+    <h1>Create a tag</h1>
+    
+    <form action="{{ url_for('create_tag') }}" method="post">
+        <label for="tag_name">Name</label>
+        <input type="text" id="tag_name" name="tag_name" placeholder="Enter a name for the tag">
+
+        <a href="{{ url_for('list_tags') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+    
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Post Detail
+{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+
+    <p>By {{ user.first_name }} {{ user.last_name }} on 
+       {{ post.created_at.strftime('%a %b %d %Y, %I:%M %p') }}
+    </p>
+
+
+    <div class="tags">
+        <span>Tags: </span>
+        {% for post_tag in post.tags %}
+            <span class="tag">{{ post_tag.tag.tag_name }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="post-buttons">
+        <a href="{{ url_for('user_detail', user_id=user.id) }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ url_for('edit_post_form', post_id=post.id) }}" class="btn btn-primary">Edit</a>
+        <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" class="inline-form">
+            <button type="submit" class="btn-danger">Delete</button>
+        </form>
+    </div>
+{% endblock %}
+
